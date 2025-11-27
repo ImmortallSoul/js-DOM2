@@ -1,9 +1,6 @@
-// ================= ГАЛЕРЕЯ ТА ТЕМА =================
-
 const gallery = document.getElementById("gallery");
 const themeBtn = document.getElementById("toggleTheme");
 
-// 1. Перевірка збереженої теми
 const savedTheme = localStorage.getItem("theme");
 
 if (savedTheme === "light") {
@@ -16,7 +13,6 @@ if (savedTheme === "light") {
   themeBtn.textContent = "dark_mode";
 }
 
-// 2. Логіка завантаження зображень
 async function loadImages(count = 4) {
   const randomPage = Math.floor(Math.random() * 100) + 1;
   try {
@@ -34,7 +30,6 @@ async function loadImages(count = 4) {
   }
 }
 
-// Слухачі для кнопок галереї
 document.getElementById("loadMore").addEventListener("click", () => loadImages());
 document.getElementById("clear").addEventListener("click", () => gallery.innerHTML = "");
 document.getElementById("deleteLast").addEventListener("click", () => {
@@ -47,7 +42,6 @@ document.getElementById("reverse").addEventListener("click", () => {
   items.forEach(item => gallery.appendChild(item));
 });
 
-// Слухач теми
 themeBtn.addEventListener("click", () => {
   if (document.body.classList.contains("dark-theme")) {
     document.body.classList.replace("dark-theme", "light-theme");
@@ -60,13 +54,7 @@ themeBtn.addEventListener("click", () => {
   }
 });
 
-// Запуск галереї
 loadImages();
-
-
-// ================= СИСТЕМА АКАУНТІВ =================
-
-// Елементи DOM
 const accountBtn = document.getElementById("accountBtn");
 const modal = document.getElementById("authModal");
 const closeModal = document.querySelector(".close-modal");
@@ -74,45 +62,37 @@ const loginSection = document.getElementById("loginSection");
 const registerSection = document.getElementById("registerSection");
 const profileSection = document.getElementById("profileSection");
 
-// Кнопки перемикання форм
 const showRegisterBtn = document.getElementById("showRegister");
 const showLoginBtn = document.getElementById("showLogin");
 
-// Стан користувача (CurrentUser)
 let currentUser = JSON.parse(localStorage.getItem("currentUser")) || null;
 
-// Функція оновлення інтерфейсу (header icon)
 function updateHeaderUI() {
   const rightSection = document.querySelector(".right");
   
-  // Видаляємо стару іконку або фото, якщо вони є, крім кнопки теми
   const oldAvatar = document.getElementById("headerAvatarImg");
   const oldIcon = document.getElementById("accountBtn");
   
   if (currentUser && currentUser.photo) {
-    // Якщо користувач увійшов і має фото
     if (oldIcon) oldIcon.style.display = "none";
     
-    // Перевіряємо чи вже є аватарка, якщо ні - створюємо
     if (!oldAvatar) {
         const img = document.createElement("img");
         img.src = currentUser.photo;
         img.className = "header-avatar";
         img.id = "headerAvatarImg";
-        img.onclick = () => openModal(); // Клік відкриває модалку
+        img.onclick = () => openModal();
         rightSection.appendChild(img);
     } else {
         oldAvatar.src = currentUser.photo;
         oldAvatar.style.display = "block";
     }
   } else {
-    // Якщо не увійшов або немає фото - показуємо стандартну іконку
     if (oldAvatar) oldAvatar.style.display = "none";
     if (oldIcon) oldIcon.style.display = "block";
   }
 }
 
-// === ЛОГІКА МОДАЛЬНОГО ВІКНА ===
 function openModal() {
   modal.style.display = "block";
   if (currentUser) {
@@ -128,7 +108,6 @@ window.addEventListener("click", (e) => {
   if (e.target === modal) modal.style.display = "none";
 });
 
-// Перемикання екранів всередині модалки
 showRegisterBtn.addEventListener("click", () => {
   loginSection.style.display = "none";
   registerSection.style.display = "block";
@@ -147,28 +126,23 @@ function showProfile() {
   registerSection.style.display = "none";
   profileSection.style.display = "block";
   
-  // Заповнюємо дані
   document.getElementById("editUsername").value = currentUser.username;
   document.getElementById("editBio").value = currentUser.bio || "";
   document.getElementById("profileImageDisplay").src = currentUser.photo || "https://via.placeholder.com/100";
 }
 
-// === РЕЄСТРАЦІЯ ===
 document.getElementById("registerForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const username = document.getElementById("regUsername").value;
   const password = document.getElementById("regPassword").value;
 
-  // Отримуємо всіх користувачів
   const users = JSON.parse(localStorage.getItem("users")) || [];
 
-  // Перевірка чи існує такий логін
   if (users.find(u => u.username === username)) {
     alert("Такий користувач вже існує!");
     return;
   }
 
-  // Створюємо нового користувача
   const newUser = {
     username: username,
     password: password,
@@ -183,7 +157,6 @@ document.getElementById("registerForm").addEventListener("submit", (e) => {
   showLogin();
 });
 
-// === ВХІД ===
 document.getElementById("loginForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const username = document.getElementById("loginUsername").value;
@@ -202,7 +175,6 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
   }
 });
 
-// === ВИХІД ===
 document.getElementById("logoutBtn").addEventListener("click", () => {
   currentUser = null;
   localStorage.removeItem("currentUser");
@@ -210,16 +182,13 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
   showLogin();
 });
 
-// === РЕДАГУВАННЯ ІНФОРМАЦІЇ ===
 document.getElementById("editProfileForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const newBio = document.getElementById("editBio").value;
   
-  // Оновлюємо поточного юзера
   currentUser.bio = newBio;
   localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
-  // Оновлюємо масив усіх юзерів
   const users = JSON.parse(localStorage.getItem("users")) || [];
   const index = users.findIndex(u => u.username === currentUser.username);
   if (index !== -1) {
@@ -230,7 +199,6 @@ document.getElementById("editProfileForm").addEventListener("submit", (e) => {
   alert("Інформацію збережено!");
 });
 
-// === ФОТО ПРОФІЛЮ (Base64) ===
 const changePhotoBtn = document.getElementById("changePhotoBtn");
 const photoInput = document.getElementById("photoInput");
 
@@ -242,16 +210,13 @@ photoInput.addEventListener("change", function() {
     const reader = new FileReader();
     
     reader.onload = function(e) {
-      const base64Image = e.target.result; // Конвертуємо картинку в текст
+      const base64Image = e.target.result;
       
-      // Оновлюємо UI
       document.getElementById("profileImageDisplay").src = base64Image;
       
-      // Зберігаємо в currentUser
       currentUser.photo = base64Image;
       localStorage.setItem("currentUser", JSON.stringify(currentUser));
       
-      // Зберігаємо в загальній базі
       const users = JSON.parse(localStorage.getItem("users")) || [];
       const index = users.findIndex(u => u.username === currentUser.username);
       if (index !== -1) {
@@ -259,12 +224,11 @@ photoInput.addEventListener("change", function() {
         localStorage.setItem("users", JSON.stringify(users));
       }
 
-      updateHeaderUI(); // Оновлюємо іконку в хедері
+      updateHeaderUI();
     };
     
     reader.readAsDataURL(file);
   }
 });
 
-// Ініціалізація іконки при завантаженні
 updateHeaderUI();
