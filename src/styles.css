@@ -1,1 +1,326 @@
-"Enter your styles here"
+/* ===== Загальні ===== */
+body {
+  margin: 0;
+  background: #121212;
+  color: #e8eaed;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ===== Верхня панель у стилі Google ===== */
+.topbar {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* центрована назва */
+  position: sticky;
+  top: 0;
+  background: #1f1f1f;
+  border-bottom: 1px solid #2c2c2c;
+  z-index: 999;
+}
+
+/* Центрована секція */
+.center-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.logo-text {
+  font-size: 28px;     /* великий, як на google.com */
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  color: #e8eaed;
+}
+
+/* Праві іконки */
+.right {
+  position: absolute;
+  right: 24px;
+  display: flex;
+  gap: 18px;
+}
+
+.right .material-symbols-rounded {
+  font-size: 28px;
+  color: #b3b3b3;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.right .material-symbols-rounded:hover {
+  color: #ffffff;
+}
+
+/* ===== Галерея ===== */
+.gallery {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #000;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+  transition: 0.25s;
+}
+
+.gallery img:hover {
+  transform: scale(1.04);
+}
+
+/* ===== Кнопки ===== */
+.controls {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+  gap: 14px;
+}
+
+button {
+  padding: 12px 18px;
+  background: #303134;
+  border: 1px solid #5f6368;
+  border-radius: 8px;
+  color: #e8eaed;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #3c4043;
+}
+/* ===================== DARK THEME ===================== */
+body.dark-theme {
+  background: #121212;
+  color: #e8eaed;
+}
+
+/* Верхня панель */
+body.dark-theme .topbar {
+  background: #1f1f1f;
+  border-bottom: 1px solid #2c2c2c;
+}
+
+/* Назва */
+body.dark-theme .logo-text {
+  color: #e8eaed;
+}
+
+/* Іконки */
+body.dark-theme .right .material-symbols-rounded {
+  color: #b3b3b3;
+}
+
+body.dark-theme .right .material-symbols-rounded:hover {
+  color: #ffffff;
+}
+
+/* Галерея */
+body.dark-theme .gallery img {
+  background: #000;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+}
+
+/* Кнопки */
+body.dark-theme button {
+  background: #303134;
+  border: 1px solid #5f6368;
+  color: #e8eaed;
+}
+
+body.dark-theme button:hover {
+  background: #3c4043;
+}
+/* ===================== LIGHT THEME (GOOGLE STYLE) ===================== */
+body.light-theme {
+  background: #ffffff;
+  color: #202124;
+}
+
+/* Верхня панель */
+body.light-theme .topbar {
+  background: #ffffff;
+  border-bottom: 1px solid #dadce0;
+}
+
+/* Назва */
+body.light-theme .logo-text {
+  color: #202124;
+}
+
+/* Іконки */
+body.light-theme .right .material-symbols-rounded {
+  color: #5f6368;
+}
+
+body.light-theme .right .material-symbols-rounded:hover {
+  color: #202124;
+}
+
+/* Галерея */
+body.light-theme .gallery img {
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Кнопки */
+body.light-theme button {
+  background: #f1f3f4;
+  border: 1px solid #dadce0;
+  color: #202124;
+}
+
+body.light-theme button:hover {
+  background: #e8eaed;
+}
+/* ... Ваш попередній CSS код ... */
+
+/* ==== МОДАЛЬНЕ ВІКНО ==== */
+.modal {
+  display: none; /* Приховано за замовчуванням */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Темний фон */
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background-color: #1f1f1f;
+  margin: 40px auto; /* <-- ЗМІНЕНО: Було 10% auto. Тепер фіксовано 40px від верху */
+  padding: 30px;
+  border: 1px solid #444;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 16px;
+  position: relative;
+  color: #e8eaed;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  text-align: center;
+  
+  /* Додаємо це, щоб вікно не виходило за межі екрану, якщо контенту багато */
+  max-height: 90vh; 
+  overflow-y: auto; 
+}
+
+/* Світла тема для модального вікна */
+body.light-theme .modal-content {
+  background-color: #ffffff;
+  color: #202124;
+  border: 1px solid #dadce0;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-modal:hover {
+  color: #fff;
+}
+body.light-theme .close-modal:hover {
+  color: #000;
+}
+
+/* Форми */
+.modal input, .modal textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #5f6368;
+  background: #303134;
+  color: white;
+  box-sizing: border-box; /* Щоб padding не ламав ширину */
+}
+
+body.light-theme .modal input, 
+body.light-theme .modal textarea {
+  background: #f1f3f4;
+  border: 1px solid #dadce0;
+  color: #202124;
+}
+
+.modal button {
+  width: 100%;
+  margin-top: 10px;
+  background: #8ab4f8;
+  color: #202124;
+  border: none;
+  font-weight: 500;
+}
+
+.modal button:hover {
+  background: #aecbfa;
+}
+
+/* Посилання перемикання */
+.switch-auth {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.switch-auth span {
+  color: #8ab4f8;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Профіль */
+.profile-photo-container {
+  margin-bottom: 20px;
+}
+
+.profile-photo-container img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #8ab4f8;
+  margin-bottom: 10px;
+}
+
+.small-btn {
+  width: auto !important;
+  padding: 5px 10px !important;
+  font-size: 12px !important;
+}
+
+.danger-btn {
+  background: #e46d6d !important;
+  color: white !important;
+  margin-top: 20px !important;
+}
+.danger-btn:hover {
+  background: #ff8a8a !important;
+}
+
+/* Стиль для аватара в хедері (замість іконки) */
+.header-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #5f6368;
+}

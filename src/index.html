@@ -1,25 +1,87 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Галерея фотографій</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ВипадковаГалерея</title>
+
+  <!-- Google Sans / Poppins (найближчі до оригіналу шрифти Google) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Material Symbols -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
+
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <header>
-        <h1>FOTO IMAGE LIST</h1>
-    </header>
-    <main>
-        <div id="gallery" class="gallery"></div>
-        <div class="buttons">
-            <button id="loadMore">Завантажити ще 4 картинки</button>
-            <button id="clearGallery">Очистити галерею</button>
-            <button id="removeLast">Видалити останню картинку</button>
-            <button id="reverseGallery">Перевернути галерею</button>
-            <button id="shuffleGallery">Перемішати галерею</button>
+
+  <!-- ==== TOP BAR ==== -->
+  <header class="topbar">
+    <div class="center-title">
+    
+      <span class="logo-text">Випадкова Галерея</span>
+    </div>
+
+    <div class="right">
+      <span class="material-symbols-rounded" id="toggleTheme">dark_mode</span>
+      <span class="material-symbols-rounded" id="accountBtn">account_circle</span>
+    </div>
+  </header>
+
+  <main>
+    <div id="gallery" class="gallery"></div>
+
+    <div class="controls">
+      <button id="loadMore">Завантажити ще 4</button>
+      <button id="clear">Очистити</button>
+      <button id="deleteLast">Видалити останню</button>
+      <button id="reverse">Перевернути</button>
+    </div>
+  </main>
+<div id="authModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      
+      <div id="loginSection">
+        <h2>Вхід</h2>
+        <form id="loginForm">
+          <input type="text" id="loginUsername" placeholder="Логін" required>
+          <input type="password" id="loginPassword" placeholder="Пароль" required>
+          <button type="submit">Увійти</button>
+        </form>
+        <p class="switch-auth">Немає акаунту? <span id="showRegister">Зареєструватися</span></p>
+      </div>
+
+      <div id="registerSection" style="display: none;">
+        <h2>Реєстрація</h2>
+        <form id="registerForm">
+          <input type="text" id="regUsername" placeholder="Логін" required>
+          <input type="password" id="regPassword" placeholder="Пароль" required>
+          <button type="submit">Створити акаунт</button>
+        </form>
+        <p class="switch-auth">Вже є акаунт? <span id="showLogin">Увійти</span></p>
+      </div>
+
+      <div id="profileSection" style="display: none;">
+        <h2>Мій Профіль</h2>
+        <div class="profile-photo-container">
+          <img id="profileImageDisplay" src="https://via.placeholder.com/100" alt="Avatar">
+          <input type="file" id="photoInput" accept="image/*" style="display: none;">
+          <button id="changePhotoBtn" class="small-btn">Змінити фото</button>
         </div>
-    </main>
-    <script src="script.js"></script>
+        
+        <form id="editProfileForm">
+          <label>Логін:</label>
+          <input type="text" id="editUsername" disabled> <label>Про себе:</label>
+          <textarea id="editBio" placeholder="Розкажіть про себе..."></textarea>
+          <button type="submit">Зберегти зміни</button>
+        </form>
+        
+        <button id="logoutBtn" class="danger-btn">Вийти</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
